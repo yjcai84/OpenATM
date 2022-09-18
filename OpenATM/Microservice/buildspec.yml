@@ -1,0 +1,11 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+  build:
+    commands:
+      - sam package --template-file template.yml --s3-bucket codepipeline-ap-southeast-1-558343094238 --output-template-file packaged-template.yml
+artifacts:
+  files:
+    - packaged-template.yml
