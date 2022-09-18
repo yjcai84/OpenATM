@@ -5,4 +5,5 @@ phases:
       java: corretto17
   build:
     commands:
+      - cd OpenATM/Microservice
       - sam build
