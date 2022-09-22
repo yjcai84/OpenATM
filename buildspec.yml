@@ -14,7 +14,9 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - ls
-      - cd OpenATM/Microservice
+      - cd OpenATM/Microservice/ExtractTransform
+      - gradle build
+      - cd ..
       - sam build
       - docker build -t open_atm:$CODEBUILD_BUILD_NUMBER .
       - docker ls
