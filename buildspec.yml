@@ -14,7 +14,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - ls
-      - cd OpenATM/Microservice/ExtractTransform
+      - cd OpenATM/Microservice/ExtractTransformFunction
       - gradle build
       - cd ..
       - sam build
