@@ -19,7 +19,7 @@ phases:
       - cd ..
       - sam build
       - docker build -t open_atm:$CODEBUILD_BUILD_NUMBER .
-      - docker ls
+      - docker ps -a
   post_build:
     commands:
       - echo Build completed on `date`
