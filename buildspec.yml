@@ -30,9 +30,9 @@ phases:
       #- docker push 238815075413.dkr.ecr.ap-southeast-1.amazonaws.com/open_atm:$CODEBUILD_BUILD_NUMBER
       - docker tag extracttransformfunction 238815075413.dkr.ecr.ap-southeast-1.amazonaws.com/open_atm:$CODEBUILD_BUILD_NUMBER
       - docker push 238815075413.dkr.ecr.ap-southeast-1.amazonaws.com/open_atm:$CODEBUILD_BUILD_NUMBER
-  artifacts:
-    files:
-      - '**/*'
-    base-directory: base_dir
-    name: BuildArtifact
-    discard-paths: no
+artifacts:
+  files:
+    - '**/*'
+  base-directory: base_dir
+  name: BuildArtifact
+  discard-paths: no
