@@ -8,6 +8,7 @@ phases:
       - java --version
       - pip3 install --upgrade pip
       - pip3 install --upgrade awscli
+      - aws --version
       - docker info
   build:
     commands:
