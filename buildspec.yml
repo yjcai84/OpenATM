@@ -34,4 +34,3 @@ artifacts:
   files:
     - '**/*'
   name: BuildArtifact
-  discard-paths: no
