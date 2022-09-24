@@ -31,7 +31,7 @@ phases:
       #- docker push 238815075413.dkr.ecr.ap-southeast-1.amazonaws.com/open_atm:$CODEBUILD_BUILD_NUMBER
       - docker tag extracttransformfunction 238815075413.dkr.ecr.ap-southeast-1.amazonaws.com/open_atm:$CODEBUILD_BUILD_NUMBER
       - docker push 238815075413.dkr.ecr.ap-southeast-1.amazonaws.com/open_atm:$CODEBUILD_BUILD_NUMBER
-      - aws lambda update-function-code --region ap-southeast-1 --function-name SAM_ECR_Extract_Transform --image-uri 238815075413.dkr.ecr.ap-southeast-1.amazonaws.com/open_atm
+      - aws lambda update-function-code --region ap-southeast-1 --function-name SAM_ECR_Extract_Transform --image-uri 238815075413.dkr.ecr.ap-southeast-1.amazonaws.com/open_atm:$CODEBUILD_BUILD_NUMBER
 artifacts:
   files:
     - '**/*'
