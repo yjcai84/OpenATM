@@ -36,3 +36,4 @@ artifacts:
   files:
     - '**/*'
   name: BuildArtifact
+  
