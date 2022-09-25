@@ -73,6 +73,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                     userSelectedAirport = "";
                     throw new Exception("no such airport");
                 }
+                System.out.println(message);
                 if (message.get("procedure").equals("sid")) {
                     System.out.println("sid event found");
                     HashMap<String, List<NameCount>> jsonIcaoWayPointSidCount = Procedure("https://open-atms.airlab.aero/api/v1/airac/sids/airport/", airports);
