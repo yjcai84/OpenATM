@@ -2,6 +2,7 @@
 
 This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders.
 
+- test comment.
 - ExtractTransformFunction/src/main - Code for the application's Lambda function.
 - events - Airport name and procedure that you can use to invoke the function.
 - ExtractTransformFunction/src/test - Unit tests for the application code. 
