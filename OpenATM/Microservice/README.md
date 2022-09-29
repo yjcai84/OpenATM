@@ -2,7 +2,6 @@
 
 This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders.
 
-- test comment.
 - ExtractTransformFunction/src/main - Code for the application's Lambda function.
 - events - Airport name and procedure that you can use to invoke the function.
 - ExtractTransformFunction/src/test - Unit tests for the application code. 
@@ -12,77 +11,88 @@ Problem statement: SIDs and STARs are procedures which are done in an airport. S
 To achieve the objective, create a backend that interrogates the Open ATMS API below connected to a frontend that allows us to select the airport and SIDs or STARs and presents the information.
 
 1. Do the code for the backend, which will talk to the Open ATMS API and find top waypoints for SIDs and STARs, in Java. (Other options are also possible after discussion, please get a confirmation) 
-Ans: Find the top waypoints for SIDs and STARs.
+Ans: 
+Top waypoints for SIDs and STARs. SID is for departure, STAR is for arrival.
+Standard instrument departure (SID) routes – name and version, also known as departure procedures (DP), are published flight procedures followed by aircraft on an IFR flight plan immediately after takeoff from an airport. It is for pilot-nav or radar-nav.
+A STAR is an air traffic control (ATC)-coded IFR arrival route established for application to arriving IFR aircraft destined for certain airports. Area navigation (RNAV) STAR/FMSP procedures for arrivals serve the same purpose but are used only by aircraft equipped with flight management systems (FMS) or GPS. The purpose of both is to simplify clearance delivery procedures and facilitate transition between en route and instrument approach procedures. 
+The ICAO airport code or location indicator is a fourletter code designating aerodromes around the world. ICAO codes are also used to identify other aviation facilities such as weather stations, international flight service stations or area control centers, whether or not they are located at airports. Flight information regions are also identified by a unique ICAO-code. The IATA code for London's Heathrow Airport is LHR and its ICAO code is EGLL.
+
 2. To build the binary/ bytecode artifact you will use an automated tool, (e.g. Maven or Gradle for Java). 
-Ans: Gradle for AWS Lambda Function Serverless Development as it is default. It is just a preference as gradle is incremental and faster.
-3. Put the backend into a container (Docker or equivalent) and send the container to a repo, then make it run in the cloud. (Azure, Google, AWS, use azure container instances, GCP cloud run, ECS or similar option, K8s a plus!) 
-Ans: ECS.
+Ans: Gradle for AWS Lambda Function Serverless Development as it is default. It is just a preference as gradle is incremental and faster. SAM build uses gradle build by default.
+
+3. Put the backend into a container (Docker or equivalent) and send the container to a repo, then make it run in the cloud. (Azure, Google, AWS, use azure container instances, GCP cloud run, ECS or similar option, K8s a plus!) We expect to see an end-to-end CI/CD process: start in a source code repository (GitHub or similar) and do the proper actions / scripts to compile, containerise, send to a container repository and run in cloud. (use GitHub actions or similar)
+Ans: VSCode -> Github (SAM Serverless, GitLab is not an option) – Docker (Containerization Tech) – CodePipeline (CICD Orchestration) – CodeBuild (buildspec.yml and SAM build with docker) – ECR (repo) – Lambda (CloudFormation Stack with API Gateway) .
+Show CodePipeline
+
 4. The build environment shall be Linux (not Windows)
 Ans: Linux
-5. We expect to see an end-to-end CI/CD process: start in a source code repository (GitHub or similar) and do the proper actions / scripts to compile, containerise, send to a container repository and run in cloud. (use GitHub actions or similar)
-Ans: GitHub, CodePipeline, ECS
-6. There will be a front-end, connecting to the back end, that will select an airport, option of SID or STAR, and return the top two waypoints for each case (no graphical design is required, using a framework is recommended) – SAM Build Command Line, local invoke or AWS Lambda Event is the front end.
+-PRE_BUILD checks the resources required (e.g. awscli, docker, pip)
+-BUILD creates docker image 238815075413.dkr.ecr.ap-southeast-1.amazonaws.com/open_atm:$CODE_BUILD through “sam build”
+-POST_BUILD pushes new docker image to ECR
+-POST_BUILD updates lambda function for framework tester to access via api gateway.
+
+5. There will be a front-end, connecting to the back end, that will select an airport, option of SID or STAR, and return the top two waypoints for each case (no graphical design is required, using a framework is recommended) – SAM Build Command Line, local invoke or AWS Lambda Event is the front end.
 You only have half an hour to present your work and demonstrate that it works:
 We suggest that in the repository you create a README file with a clear diagram of the components of your solution but also with the steps that are required to build it. (No need for a Power Point.) You can use the README to assist you on your presentation. You are not expected to code live or to memorise the commands you are going to use.
 Ans: SAM Build Command Line, local invoke or AWS Lambda Event is the front end.
-7. From the half an hour, we recommend you spend some minutes to walk us through the code you have written. Suggest explaining its structure and the key concepts used. We also would like you to show us the code that supports the building, test, and deployment.
-Ans: Show the Codes
+
+6. From the half an hour, we recommend you spend some minutes to walk us through the code you have written. Suggest explaining its structure and the key concepts used. We also would like you to show us the code that supports the building, test, and deployment.
+Ans:
 8. Finally,  demonstrate the interaction with front-end of the solution. Select an airport, SID vs STAR, and show the waypoints as requested in the functionality section. Show us that it works!
 Ans: Show AWS Lambda which has an api gateway, iac and serverless function.
 9. You only have half an hour to present your work and demonstrate that it works:
 We suggest that in the repository you create a README file with a clear diagram of the components of your solution but also with the steps that are required to build it. (No need for a Power Point.) You can use the README to assist you on your presentation. You are not expected to code live or to memorise the commands you are going to use.
 Ans: README contains a scale down instructions similar to this document.
+
 10. From the half an hour, we recommend you spend some minutes to walk us through the code you have written. Suggest explaining its structure and the key concepts used. We also would like you to show us the code that supports the building, test, and deployment.
-Ans: Show us the code that supports building – gradle and sam build → gradle build. Show us the code that supports test – APIGatewayProxyResponseEvent handleRequest. Show us the code that supports deployment – CICD
+Ans:
+Show us the code that supports building – gradle and sam build → gradle build. Show us the code that supports test – APIGatewayProxyResponseEvent handleRequest. Show us the code that supports deployment – CICD
+
 11. Finally,  demonstrate the interaction with front-end of the solution. Select an airport, SID vs STAR, and show the waypoints as requested in the functionality section. Show us that it works!
-Ans: Use an event file that simulate to input 1 airport and SID procedure and 1 airport and STAR procedure.
-Open AWS Lambda from my AWS account.
-Further inspiration for the walkthrough:
+Ans: 
+Use an event file that simulate to input 1 airport and SID procedure and 1 airport and STAR procedure.
+
 12. Your feedback about the tech challenge and what you have learnt from it (please do 	at least one element which is new to you, and explain it to us)
 Ans:
-Handle Typechecking Scenarios in Java using GSON to JSON. Previously I done it using Hack. So I’ll need to find a open source piece of code to integrate typechecking as this is part of the MVP. This is more important than the features 1 - 4: 
-Kafka (publish-subscribe to MQ), 
-Backend database (MySQL – explain about identifying the data that changes all the time and data that do not change at all). But MySQL performance may not meet the requirement of fast changing data. That needs to be discussed with the project team.
-Improving UI/UX (does not impact MVP), 
-Slack notification system (does not impact MVP).
 
-I choose to handle in the area POST/GET API replay where the side effects from potential inconsistent data changes from API cause the function I wrote cannot show consistent test results and hence the team cannot debug consistently each time.
+Handle Typechecking Scenarios in Java using GSON to JSON. I’ll need to find a open source piece of code to integrate typechecking (scenario 1 and 2) as detect api response change should be part of the MVP. This is more important than the features 1 - 4: 
 
-During API integration,
-Scenario 1: The data from API changes in structured format. There is a need to handle if the API structure has more elements than the POJO to detect changes (e.g. throwing an exception if the json element is required or set the new json element as optional). Show test result.
+Kafka (publish-subscribe to MQ), Backend database (MySQL – explain about identifying the data that changes all the time and data that do not change at all). But MySQL performance may not meet the requirement of fast changing data. That needs to be discussed with the project team. Improving UI/UX (does not impact MVP), Slack notification system (does not impact MVP).
+
+Scenario 1: The data from API changes. There is a need to handle if the API structure has more elements than the POJO to detect api response changes (e.g. throwing an exception if the json element is required or set the new json element as optional). If the API has less elements than the POJO, the typechecker should understand which is the required fields and optional fields to flag the errors accordingly.
 Scenario 2: The data from API is the same as the POJO.
 
 13. How would you work differently if this was not a test but a two week sprint 
-Ans: Find out from project manager on the triple constraint baseline for the sprints and more about the iteration planning on two week sprint.
-Process is to review the prioritized user stories with the customers. 
-Process includes estimate the effort of the two week sprint.
-Process is to grasp the initial Product backlog 
+Ans: 
 
+Find out from project manager on the triple constraint baseline for the sprints and more about the iteration planning on two week sprint.
+Use an existing process is to review the prioritized user stories with the customers. 
+Use an existing process to includes estimate the effort of the two week sprint.
+Use an existing process to list the initial Product backlog.
 Go through Sprint Planning - Sprint Retrospective - Sprint Review.
 
-To be honest, I prefer traditional waterfall in the phase gate for deeper technical work at the start to prototype the solution architecture (containers, typechecker, swagger, logging, monitoring, api gateway configuration, cloud services (IAM, cloud stack), automated tests structure, CIAT, CICD) without two week sprints as these schedules should be generous and fixed and they have certain difficulty level.
-
-I would build the requirements for production quality before accelerating to two week sprints to implement features like kafka, backend database, improving uiux, notification system.
+I would choose to prioritize requirements such as state tree debugging/replay, shifting workloads, typechecking improvement, swagger, logging, monitoring, api gateway configuration, cloud services (IAM, cloud stack), automated tests structure, CIAT, CICD to ECS or EKS) without two week sprints. I would build these requirements for production quality before accelerating to two week sprints to implement features like kafka, backend database, improving uiux, notification system.
 
 14. Your own suggestions on how to improve the code for production quality (how to increase maturity)
-Ans: For Java, implement Splunk Log, Splunk Alert, Splunk Dashboard, Log4j, any job monitoring. 
-We can rely on K8s kubernetes containers to shift workload from cloud to on-prem and vice-versa. This is for reliability, performance and cost.
-We can rely on the cloud equivalent enterprise-as-a-service for logging, alert, dashboard and application service monitoring.
+Ans: 
 
-The team can continue to build the java typechecker to replay the API GET/ at state tree for the last replay as well as storing the state tree (json inputs and other required elements) to replay the test results through the api gateway using the state tree as input. For API POST/ not really necessary as we are not interfacing changes with the OpenATM system but pulling data from it. This part does not need to be required to deploy onto CloudFormation.
+I would suggest to build kubernetes containers instead of docker to migrate workload using some software (tanzu kubernetes) from cloud to on-prem or cloud to other clouds and vice-versa for finer control, reliability, performance and cost.
+Use logging (log4j, splunk, sam logging, cloudwatch), alert (splunk, cloudwatch for cost usage), monitoring (cloudwatch...), healthcheck (enterprise job monitoring , ECS or EKS healthcheck), dashboard (splunk, cloudwatch).
 
-The team can use Swagger to describe the structure of APIs so that machines can read them. After describing the APIs, Document Structure Typechecking Input -> Swagger can be used to generate the POJOs. This is the advantage of using Swagger as it allows accurate POJO generation and OpenAPI specification. 
+The team can continue to build the java typechecker to replay (state tree debugging capability) the API GET/ or POST/ for the last replay as well as storing the state tree (json inputs and other required elements) to replay any test results locally without relying on OpenATMs api to regenerate the error. The flight clearance request is like a booking request. If a clearance request failed or success. The state tree can be saved to replay the clearance.
 
-api key should not be stored anywhere. Use HMAC Authentication is common for securing public APIs. OAuth on the other hand is useful when you need to restrict parts of your API to authenticated users only. Check how the cloud provider secure the keys when transmitting.
+The team can use Swagger to describe the structure of APIs so that machines can read them. After describing the APIs. Typechecking Input -> Swagger can be used to regenerate the POJOs (I used an online generator). This is the advantage of using Swagger as it allows accurate POJO generation and OpenAPI specification and api documentation at the same time.
+
+API key should not be stored anywhere. Use HMAC Authentication is common for securing public APIs. OAuth on the other hand is useful when you need to restrict parts of your API to authenticated users only. Check how the cloud provider secure the keys when transmitting.
 
 Block DDOS by using rate limiting on the api gateway. Check how the cloud provider throttle or rate limit the invokation from the front end and mitigate ddos.
 
-Data Pipelines will be the later part.
+The team can use Swagger to describe the structure of APIs so that machines can read them. After describing the APIs. Typechecking Input -> Swagger can be used to regenerate the POJOs (I used an online generator). This is the advantage of using Swagger as it allows accurate POJO generation and OpenAPI specification and api documentation at the same time.
 
-The application uses several AWS resources, including Lambda functions and an API Gateway API. These resources are defined in the `template.yaml` file in this project. You can update the template to add AWS resources through the same deployment process that updates your application code.
+API key should not be stored anywhere. Use HMAC Authentication is common for securing public APIs. OAuth on the other hand is useful when you need to restrict parts of your API to authenticated users only. Check how the cloud provider secure the keys when transmitting.
 
-If you prefer to use an integrated development environment (IDE) to build and test your application, you can use the AWS Toolkit.  
-The AWS Toolkit is an open source plug-in for popular IDEs that uses the SAM CLI to build and deploy serverless applications on AWS. The AWS Toolkit also adds a simplified step-through debugging experience for Lambda function code. See the following links to get started.
+Block DDOS by using rate limiting on the api gateway. Check how the cloud provider throttle or rate limit the invokation from the front end and mitigate ddos.
+
 
 * [CLion](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html)
 * [GoLand](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html)
