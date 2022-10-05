@@ -1,3 +1,9 @@
+/**
+ * Name: Cai Yuejun Leon
+ * 
+ * The gson handles the parsing
+ * The manipulation to desired response structure is java stream 8 to test out map reduce.
+ */
 package ExtractTransform;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -77,6 +83,8 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 if (message.get("procedure").equals("sid")) {
                     System.out.println("sid event found");
                     HashMap<String, List<NameCount>> jsonIcaoWayPointSidCount = Procedure("https://open-atms.airlab.aero/api/v1/airac/sids/airport/", airports);
+                    // this is a bug.
+                    // user selected airport should be checked before calling Procedure.
                     if (jsonIcaoWayPointSidCount.get(userSelectedAirport.toUpperCase()) == null) {
                         System.out.println("user selected an airport that does not exist in sids");
                     }
@@ -88,6 +96,8 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 } else if (message.get("procedure").equals("star")) {
                     System.out.println("star event found");
                     HashMap<String, List<NameCount>> jsonIcaoWayPointStarCount = Procedure("https://open-atms.airlab.aero/api/v1/airac/stars/airport/", airports);
+                    // this is a bug.
+                    // user selected airport should be checked before calling Procedure.
                     if (jsonIcaoWayPointStarCount.get(userSelectedAirport.toUpperCase()) == null) {
                         System.out.println("user selected an airport that does not exist in stars");
                     }

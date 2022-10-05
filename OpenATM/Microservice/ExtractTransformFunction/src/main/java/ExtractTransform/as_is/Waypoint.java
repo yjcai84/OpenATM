@@ -1,3 +1,8 @@
+/**
+ * Name: Cai Yuejun Leon
+ * 
+ * Reverse Engineer POJO class by Visual Paradigm from json.
+ */
 package ExtractTransform.as_is;
 import com.google.gson.annotations.SerializedName;
 import ExtractTransform.AllKeysRequired;

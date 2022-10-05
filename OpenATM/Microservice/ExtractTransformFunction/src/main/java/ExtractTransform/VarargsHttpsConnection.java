@@ -1,5 +1,5 @@
 /**
- * Name: Cai Yuejun
+ * Name: Cai Yuejun Leon
  */
 package ExtractTransform;
 import java.io.BufferedReader;
@@ -13,18 +13,23 @@ import com.google.common.base.MoreObjects;
 
 public class VarargsHttpsConnection {
 
+	/**
+	 * The API Key is not supposed to be embedded here but outside the code level and hashed by HMAC and etc as metadata. 
+	 * This is due to limited time constraint in programming assignment.
+	 */
 	private static final String API_KEY = "G9Tw58HE6HDzyq94HFmnd2yOymAuU32k2mEgL3oTVbhLl6E1opu5Hqxb5BASwCWv";
 	/**
-	 *
+	 * The browser user agent is provided.
 	 */
 	private static final String USER_AGENT = "Mozilla/5.0";
 
 	/**
-	 * Get function with optional fields.
+	 * GET/ request.
+	 * For the programming assignment, it is simpler to program using HttpsURLConnection to open the connection instead of constructing CRUD (e.g. spring framework) for it.
 	 * 
-	 * @param getUrl
-	 * @param userAgent
-	 * @throws IOException
+	 * @param getUrl Varying string array for the get url request to obtain a response.
+	 * @throws IOException IOException
+	 * @throws Exception Exception
 	 */
 	public static String sendGET(String... getUrl) throws IOException, Exception {
 		// this is to typecheck
@@ -70,11 +75,14 @@ public class VarargsHttpsConnection {
 	}
 
 	/**
-	 * Post function with optional fields.
+	 * POST/ request.
+	 * For the programming assignment, it is simpler to program using HttpsURLConnection to open the connection instead of constructing CRUD (e.g. spring framework) for it.
 	 * 
-	 * @param postUrl 
-	 * @param postParams
-	 * @throws IOException
+	 * @param postUrl Varying string array for post request to obtain a response.
+	 * @param postParams Post parameter
+	 * 
+	 * @throws IOException IOException
+	 * @throws Exception Exception
 	 */
 	public void sendPOST(String... postUrl) throws IOException, Exception {
 		// this is to typecheck

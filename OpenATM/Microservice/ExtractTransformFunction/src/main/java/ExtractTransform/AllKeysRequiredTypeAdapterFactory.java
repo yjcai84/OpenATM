@@ -1,3 +1,6 @@
+/**
+ * Name: Cai Yuejun Leon
+ */
 package ExtractTransform;
 import java.io.IOException;
 import java.util.Set;
@@ -84,6 +87,10 @@ final class AllKeysRequiredTypeAdapterFactory
             }
         }
 
+        /**
+        * validate the json element if the expected properties and actual properties are the same.
+        * If they are not, indicate the why and what the reasons are and throw exceptions
+        */
         private void validate(final JsonElement jsonElement)
                 throws ExecutionException {
             if ( !jsonElement.isJsonObject() ) {
